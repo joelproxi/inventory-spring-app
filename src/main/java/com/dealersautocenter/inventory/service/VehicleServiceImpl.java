@@ -31,7 +31,7 @@ public class VehicleServiceImpl implements VehicleService {
     public VehicleResponse create(CreateVehicleRequest req) {
         String tenantId = TenantContext.getTenantId();
 
-        // Vérifie que le dealer existe et appartient au même tenant
+        // Verify that the dealer exists and belongs to the same tenant
         Dealer dealer = dealerService.getDealerEntity(req.getDealerId(), tenantId);
 
         Vehicle vehicle = Vehicle.builder()
@@ -63,7 +63,7 @@ public class VehicleServiceImpl implements VehicleService {
                                          Pageable pageable) {
         String tenantId = TenantContext.getTenantId();
 
-        // Filtre par subscription du dealer
+        // Filter by dealer's subscription
         if (subscription != null) {
             return vehicleRepository
                     .findByTenantIdAndDealerSubscriptionType(
@@ -71,7 +71,7 @@ public class VehicleServiceImpl implements VehicleService {
                     .map(vehicleMapper::toResponse);
         }
 
-        // Filtres dynamiques
+        // Dynamic filters
         return vehicleRepository
                 .findAll(VehicleSpecification.withFilters(
                         tenantId, model, status, priceMin, priceMax), pageable)

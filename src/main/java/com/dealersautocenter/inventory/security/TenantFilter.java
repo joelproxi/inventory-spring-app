@@ -26,7 +26,6 @@ public class TenantFilter implements Filter {
         HttpServletResponse httpRes = (HttpServletResponse) res;
         String path = httpReq.getRequestURI();
 
-        // Exclure les chemins utilitaires
         if (path.startsWith("/h2-console") || path.startsWith("/swagger")
                 || path.startsWith("/v3/api-docs")) {
             chain.doFilter(req, res);

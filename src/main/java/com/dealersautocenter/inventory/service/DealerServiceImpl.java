@@ -60,9 +60,12 @@ public class DealerServiceImpl implements DealerService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Dealer not found: " + id));
 
-        if (req.getName() != null)             dealer.setName(req.getName());
-        if (req.getEmail() != null)            dealer.setEmail(req.getEmail());
-        if (req.getSubscriptionType() != null) dealer.setSubscriptionType(req.getSubscriptionType());
+        if (req.getName() != null)
+            dealer.setName(req.getName());
+        if (req.getEmail() != null)
+            dealer.setEmail(req.getEmail());
+        if (req.getSubscriptionType() != null)
+            dealer.setSubscriptionType(req.getSubscriptionType());
 
         return dealerMapper.toResponse(dealerRepository.save(dealer));
     }
@@ -76,8 +79,8 @@ public class DealerServiceImpl implements DealerService {
     }
 
     /**
-     * Récupère un Dealer en vérifiant le tenant.
-     * Utilisé par VehicleService lors de la création d'un véhicule.
+     * Retrieves a Dealer while verifying the tenant.
+     * Used by VehicleService when creating a vehicle.
      */
     @Transactional(readOnly = true)
     public Dealer getDealerEntity(UUID dealerId, String tenantId) {
@@ -93,8 +96,8 @@ public class DealerServiceImpl implements DealerService {
     }
 
     /**
-     * Comptage global (tous tenants) par type d'abonnement.
-     * Réservé à GLOBAL_ADMIN.
+     * Global count (all tenants) by subscription type.
+     * Reserved for GLOBAL_ADMIN.
      */
     @Transactional(readOnly = true)
     public Map<String, Long> countBySubscription() {

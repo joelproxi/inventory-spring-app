@@ -1,7 +1,7 @@
 package com.dealersautocenter.inventory.security;
 
 /**
- * Stocke le tenant et le rôle du user pour la requête courante (ThreadLocal).
+ * Stores the tenant and user role for the current request (ThreadLocal).
  */
 public final class TenantContext {
 
