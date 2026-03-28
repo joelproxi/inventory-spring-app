@@ -21,13 +21,6 @@ spring:
       enabled: true
       path: /h2-console
 
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    operationsSorter: alpha
-    tagsSorter: alpha
 
 tenant:
   header-name: X-Tenant-Id
