@@ -78,7 +78,7 @@ Web → Application ← Persistence
 
 ```bash
 # 1. Clone the repository
-git clone <repo-url>
+git clone https://github.com/joelproxi/inventory-spring-app
 cd inventory-spring-app/inventory
 
 # 2. Build and run
