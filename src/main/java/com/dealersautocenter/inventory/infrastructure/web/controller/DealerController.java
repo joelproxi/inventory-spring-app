@@ -15,11 +15,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/dealers")
 @RequiredArgsConstructor
+@Tag(name = "Dealers", description = "Operations related to dealers")
 public class DealerController {
 
     private final DealerUseCase dealerUseCase;

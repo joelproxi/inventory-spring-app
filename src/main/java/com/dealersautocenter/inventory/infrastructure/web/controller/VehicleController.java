@@ -17,12 +17,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/vehicles")
 @RequiredArgsConstructor
+@Tag(name = "Vehicles", description = "Operations related to vehicles and inventory")
 public class VehicleController {
 
     private final VehicleUseCase vehicleUseCase;
