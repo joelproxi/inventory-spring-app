@@ -28,3 +28,7 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: alpha
     tagsSorter: alpha
+
+tenant:
+  header-name: X-Tenant-Id
+  role-header-name: X-User-Role
