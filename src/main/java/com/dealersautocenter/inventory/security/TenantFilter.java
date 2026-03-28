@@ -8,20 +8,21 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-/**
- * Filtre HTTP :
- * - Extrait X-Tenant-Id (obligatoire) et X-User-Role (optionnel)
- * - Renvoie 400 si X-Tenant-Id absent
- */
 @Component
 @Order(1)
 public class TenantFilter implements Filter {
 
+    private final TenantResolver<HttpServletRequest> tenantResolver;
+
+    public TenantFilter(TenantResolver<HttpServletRequest> tenantResolver) {
+        this.tenantResolver = tenantResolver;
+    }
+
     @Override
     public void doFilter(ServletRequest req, ServletResponse res,
-                         FilterChain chain) throws IOException, ServletException {
+            FilterChain chain) throws IOException, ServletException {
 
-        HttpServletRequest httpReq  = (HttpServletRequest) req;
+        HttpServletRequest httpReq = (HttpServletRequest) req;
         HttpServletResponse httpRes = (HttpServletResponse) res;
         String path = httpReq.getRequestURI();
 
@@ -32,7 +33,7 @@ public class TenantFilter implements Filter {
             return;
         }
 
-        String tenantId = httpReq.getHeader("X-Tenant-Id");
+        String tenantId = tenantResolver.resolveTenantIdentifier(httpReq);
         if (tenantId == null || tenantId.isBlank()) {
             httpRes.setStatus(400);
             httpRes.setContentType("application/json");
@@ -41,7 +42,7 @@ public class TenantFilter implements Filter {
             return;
         }
 
-        String role = httpReq.getHeader("X-User-Role");
+        String role = tenantResolver.resolveUserRole(httpReq);
 
         try {
             TenantContext.setTenantId(tenantId.trim());
