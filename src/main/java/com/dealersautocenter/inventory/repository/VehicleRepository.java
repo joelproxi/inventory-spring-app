@@ -15,21 +15,21 @@ import java.util.UUID;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, UUID>,
-    JpaSpecificationExecutor<Vehicle> {
+                                           JpaSpecificationExecutor<Vehicle> {
 
-  Optional<Vehicle> findByIdAndTenantId(UUID id, String tenantId);
+    Optional<Vehicle> findByIdAndTenantId(UUID id, String tenantId);
 
-  boolean existsByIdAndTenantId(UUID id, String tenantId);
+    boolean existsByIdAndTenantId(UUID id, String tenantId);
 
-  void deleteByIdAndTenantId(UUID id, String tenantId);
+    void deleteByIdAndTenantId(UUID id, String tenantId);
 
-  @Query("""
-      SELECT v FROM Vehicle v JOIN v.dealer d
-      WHERE v.tenantId = :tenantId
-        AND d.subscriptionType = :subType
-      """)
-  Page<Vehicle> findByTenantIdAndDealerSubscriptionType(
-      @Param("tenantId") String tenantId,
-      @Param("subType") SubscriptionType subType,
-      Pageable pageable);
+    @Query("""
+           SELECT v FROM Vehicle v JOIN v.dealer d
+           WHERE v.tenantId = :tenantId
+             AND d.subscriptionType = :subType
+           """)
+    Page<Vehicle> findByTenantIdAndDealerSubscriptionType(
+            @Param("tenantId") String tenantId,
+            @Param("subType") SubscriptionType subType,
+            Pageable pageable);
 }

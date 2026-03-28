@@ -11,17 +11,17 @@ import java.util.List;
 
 public final class VehicleSpecification {
 
-    private VehicleSpecification() {
-    }
+    private VehicleSpecification() {}
 
     public static Specification<Vehicle> withFilters(String tenantId,
-            String model,
-            VehicleStatus status,
-            BigDecimal priceMin,
-            BigDecimal priceMax) {
+                                                      String model,
+                                                      VehicleStatus status,
+                                                      BigDecimal priceMin,
+                                                      BigDecimal priceMax) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
+            // Toujours filtrer par tenant
             predicates.add(cb.equal(root.get("tenantId"), tenantId));
 
             if (model != null && !model.isBlank()) {
